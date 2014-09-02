@@ -35,11 +35,9 @@ class Card_Data
 
 
 
-	public function __construct($id)
+	public function __construct($id = 0)
 	{
 		$this->init();
-		// オブジェクト生成時のダンプ。なんでPHPにプリプロセッサないの。
-		var_dump($this);
 	}
 
 

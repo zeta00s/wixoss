@@ -5,12 +5,11 @@ require_once '/home/zeta00s/zeta00s.php.xdomain.jp/public_html/wixoss/prefarence
 class Card_Cost
 {
 	private $cost;
-	private $color_lists;
 
-	public function __construct($origin_array = NULL)
+	public function __construct($origin_array = array())
 	{
 		$this->init();
-		if (is_null($origin_array)) {return;}
+		if (is_array($origin_array) && empty($origin_array)) { return; } // 空の配列なら終了
 		$this->setAll($prigin_array);
 	}
 
@@ -19,10 +18,10 @@ class Card_Cost
 	// $this->cost の初期化
 	private function init()
 	{
-		$color = new Card_Color();
-		$this->color_lists = $color->getValues();
-		foreach ($this->color_lists as $key -> $constValue) {
-			$this->cost[$constValue] = -1;
+		$color_list = Card_Color::UNKNOWN()->getValues(); //UNKNOWNでなくてもよい。より良い方法はないのか
+		unset($color_list[array_search(Card_Color::UNKNOWN, $color_list)]); // UNKNOWN は含めないので削除
+		foreach ($color_list as $key => $const_value) {
+			$this->cost[$const_value] = -1;
 		}
 	}
 
@@ -32,7 +31,7 @@ class Card_Cost
 	private function isCollectKey($array)
 	{
 		if (!is_array($array)) {
-			throw new InvalidArgumentException('コンストラクタの引数に配列(またはNULL)が指定されていません。');
+			throw new InvalidArgumentException('コンストラクタの引数に配列が指定されていません。');
 		} elseif (array_keys($array) != array_keys($this->cost)) {
 			throw new OutOfBoundsException('配列のキーが一致しません。');
 		}
@@ -48,15 +47,25 @@ class Card_Cost
 		}
 	}
 
+	// Card_Color::UNKNOWN かどうか
+	private function isUnknown(Card_Color $color)
+	{
+		if ($color == Card_Color::UNKNOWN()) {
+			throw new OutOfBoundsException('UNKNOWN を操作しようとしました。');
+		}
+	}
+
 
 
 	public function get(Card_Color $color)
 	{
+		$this->isUnknown($color);
 		return $this->cost[$color->valueOf()];
 	}
 
 	public function set(Card_Color $color, $value)
 	{
+		$this->isUnknown($color);
 		$this->isCorrectValue($value);
 		$this->cost[$color->valueOf()] = $value;
 	}
@@ -66,9 +75,9 @@ class Card_Cost
 		return $this->cost;
 	}
 
-	// $this->cost と同じ形式の配列が引数として指定された時のみ
 	public function setAll($value_array)
 	{
+		// $this->cost と同じ形式の配列が引数として指定された時のみ
 		$this->isCollectKey($value_array);
 		foreach ($value_array as $key -> $value) {
 			$this->isCorrectValue($value);

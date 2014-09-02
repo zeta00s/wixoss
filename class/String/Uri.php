@@ -1,6 +1,6 @@
 <?php
 
-class Uri_Operator
+class String_Uri
 {
 	//http://logic.moo.jp/data/archives/501.html
 	public static function makeUri($base = '', $rel_path = '')
@@ -22,15 +22,13 @@ class Uri_Operator
 		}
 		$b = split('/', $rel_path);
 		foreach ($b as $v) {
-			if (strcmp($v, '') == 0) {continue;}
+			if (strcmp($v, '') == 0) { continue; }
 			elseif ($v == '.') {}
-			elseif ($v == '..') {array_pop($a);}
-			else {array_push($a, $v);}
+			elseif ($v == '..') { array_pop($a); }
+			else { array_push($a, $v); }
 		}
 		$path = join('/', $a);
 		$out = $parse['scheme'] . '://' . $parse['host'] . '/' . $path;
 		return $out;
 	}
 }
-
-

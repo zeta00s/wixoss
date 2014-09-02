@@ -1,4 +1,5 @@
 <?php
+
 require_once '../prefarence.php';
 
 class num extends Enum
@@ -126,8 +127,8 @@ if ($test->getNumber() == num::ONE()) {print '$test->getNumber() == num::ONE()';
 print '<br>';
 if ($test->getNumber() == 1) {print '$test->getNumber() == 1';}
 print '<br>';
-
-
+if (num::ONE == num::ONE()) {print 'num::ONE == num::ONE()';}
+print '<br>';
 
 
 
