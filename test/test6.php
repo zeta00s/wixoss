@@ -24,7 +24,7 @@ print '<br>';
 
 print '<br>next<br><br>';
 
-$string = '  花代　　　　/  　  　  ユズキ　　   　  ';
+$string = '  花代/      ユズキ     ';
 $array = array_map(function($str){return trim($str);}, explode('/', $string));
 var_dump($array);
 print '<br>end';
