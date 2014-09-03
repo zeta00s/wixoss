@@ -26,22 +26,22 @@ class Foo_Bar_Hoge
 * 未定
 
 #### 関数名
- private function addValue()
- public static function isValid($foo, $bar = 0)
+private function addValue()
+public static function isValid($foo, $bar = 0)
 * camelCaps
 * 動詞または is から始める
 * クラスのメンバで private のときは、関数名の最初にアンダースコア1文字をつける
-..* (protected は未定)
+    * (protected は未定)
 
 #### 変数名
- private $str;
- private $_original_value;
+private $str;
+private $_original_value;
 * snake_case
 * クラスのメンバで private のときは、変数名の最初にアンダースコア1文字をつける
-..* (protected は未定)
+    * (protected は未定)
 
 #### 配列名
-..* private $costs;
+private $costs;
 * snake_case
 * 複数形にする(_arrayで終わる場合を除く?)
 * 連想配列のキーも snake_case
@@ -64,7 +64,7 @@ const FORM_WIDTH = 150;
 
 クラス内部について
 * 全ての変数と関数は private, protected, public を明示
-..* クラス内の変数は public 禁止
+    * クラス内の変数は public 禁止
 * 変数は全てコンストラクタの中で初期化したい、なんとなく
 
 
