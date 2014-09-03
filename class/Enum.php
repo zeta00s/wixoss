@@ -1,47 +1,67 @@
 <?php
 
-// https://gist.github.com/hirak/5109317
 // http://qiita.com/Hiraku/items/71e385b56dcaa37629fe
-
+/**
+ * 列挙型を表現するための抽象クラス。
+ *
+ * このクラスを継承することで、継承したクラスに含まれる全ての定数をメンバとした列挙型のようにクラスを扱うことができる。
+ * 例) class Suit extends Enum { const SPADE = 'spade'; const HEART = 'heart'; const CLUB = 'club'; const DIAMOND = 'diamond'; }
+ *
+ * インスタンスを作成するときは、引数に定数の値を指定する。
+ * 例) $suit = new Suit(Suit::SPADE); $suit = new Suit('spade');
+ *
+ * また、PHP5.3以降は、new キーワードを使わずに書くこともできる。
+ * 例) $suit = Suit::SPADE();
+ *
+ * ※定数はもちろんそのまま扱うこともできる。
+ * 例) $str = Suit::SPADE;
+ *
+ * @link https://gist.github.com/hirak/5109317
+ *
+ */
 abstract class Enum
 {
-	private $scalar;
+    private $_scalar;
 
-	function __construct($value)
-	{
-		$ref = new ReflectionObject($this);
-		$consts = $ref->getConstants();
-		if (!in_array($value, $consts, true)) {
-			throw new InvalidArgumentException;
-		}
+    public function __construct($value)
+    {
+        $ref = new ReflectionObject($this);
+        $consts = $ref->getConstants();
+        if (!in_array($value, $consts, true)) {
+            throw new InvalidArgumentException;
+        }
 
-		$this->scalar = $value;
-	}
+        $this->_scalar = $value;
+    }
 
-	final static function __callStatic($label, $args)
-	{
-		$class = get_called_class();
-		$const = constant("$class::$label");
-		return new $class($const);
-	}
+    final public static function __callStatic($label, $args)
+    {
+        $class = get_called_class();
+        $const = constant("$class::$label");
+        return new $class($const);
+    }
 
-	//元の値を取り出すメソッド。
-	//メソッド名は好みのものに変更どうぞ
-	final function valueOf()
-	{
-		return $this->scalar;
-	}
+    /**
+     * もとの型で値を返す
+     * @return mixed もとの値
+     */
+    final public function valueOf()
+    {
+        return $this->_scalar;
+    }
 
-	final function __toString()
-	{
-		return (string)$this->scalar;
-	}
+    final public function __toString()
+    {
+        return (string)$this->_scalar;
+    }
 
-	// ******** original methods ********
-	// 定数のリストを連想配列(キー:定数名, 値:定数の値)で取り出す
-	final function getValues()
-	{
-		$ref = new ReflectionObject($this);
-		return $ref->getConstants();
-	}
+    /**
+     * クラスに含まれる定数のリストを連想配列(キー:定数名, 値:定数の値)で取り出す
+     * @return multitype 定数のリストを表す連想配列:
+     */
+    public function getValues()
+    {
+        $ref = new ReflectionObject($this);
+        return $ref->getConstants();
+    }
 }

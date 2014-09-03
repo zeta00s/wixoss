@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
-include_path=0;/wixoss
+include_path=0;/wixoss\u00051;/wixoss/class/goutte.phar\u00051;/wixoss/class/phpunit.phar
 phpVersion=php5.3
 use_asp_tags_as_php=false

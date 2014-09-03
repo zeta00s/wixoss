@@ -2,77 +2,93 @@
 
 require_once '/home/zeta00s/zeta00s.php.xdomain.jp/public_html/wixoss/prefarence.php';
 
+/** ルリグタイプのリストを表すクラス */
 class Card_LrigType
 {
-	private $type_array;
-	private $type_text;
+    /** ルリグタイプのリストを表す配列 */
+    private $_type_array;
+    /** ルリグタイプのリストを表すテキスト */
+    private $_type_text;
 
-	private $convert_func;
-
-	public function __construct($origin_text = '')
-	{
-		$this->init();
-	}
-
-
-
-	private function init()
-	{
-		$this->type_array = array();
-		$this->type_text = '';
-	}
+    public function __construct($origin = '')
+    {
+        if (is_string($origin)) {
+            $this->setText($origin);
+        } elseif (is_array($origin)) {
+            $this->setArray($origin);
+        } else {
+            throw new InvalidArgumentException('ルリグタイプとして不適切な値が代入されようとしました。');
+        }
+    }
 
 
+    public function __set()
+    {
 
-	private static function arrayToText($array) // , $convert_type = 1) // もし自動変換が複雑になれば実装
-	{
-		if (!is_array($array)) {
-			throw new InvalidArgumentException('配列以外を文字列に変換しようとしました。');
-		}
-		return implode('/', $array);
-	}
+    }
 
-	private static function textToArray($text) // , $convert_type = 1) // もし自動変換が複雑になれば実装
-	{
-		if (!is_string($text)) {
-			throw new InvalidArgumentException('文字列以外を配列に変換しようとしました。');
-		} elseif (empty($text)) {
-			return array(); // 空文字列は空の配列を返す
-		}
-		return explode('/', $text);
+    /**
+     * ルリグタイプのリストを表す配列を取得する
+     * @return array ルリグタイプのリストを表す配列
+     */
+    public function getArray()
+    {
+        return $this->_type_array;
+    }
 
-	}
+    /**
+     * ルリグタイプのリストを表す
+     * @param array $value
+     * @param bool $binding テキストを連動して設定させるかどうか
+     * @throws InvalidArgumentException
+     */
+    public function setArray($value, $binding = true) // , $convert_type = 1)
+    {
+        if (!is_array($text)) {
+            throw new InvalidArgumentException('ルリグタイプを表す配列として不適切な値が代入されようとしました。');
+        }
+        $this->_type_array = array_values($value);
+        if ($binding) { $this->_type_text = static::_convertArrayToText($value); }
+    }
+
+    /**
+     *
+     * @return Ambigous <unknown, string>
+     */
+    public function getText()
+    {
+        return $this->_type_text;
+    }
+
+    public function setText($value, $binding = true) // , $convert_type = 1)
+    {
+        if (!is_string($value)) {
+            throw new InvalidArgumentException('ルリグタイプを表すテキストとして不適切な値が代入されようとしました。');
+        }
+        $this->_type_text = $value;
+        if ($binding) { $this->_type_array = static::_convertTextToArray($value); }
+    }
 
 
 
-	public function getArray()
-	{
-		return $this->type_array;
-	}
 
-	public function setArray($value, $binding = true) // , $convert_type = 1)
-	{
-		if (!is_array($text)) {
-			throw new InvalidArgumentException('ルリグタイプを表す配列として不適切な値が代入されようとしました。');
-		}
-		$this->type_array = array_values($value);
-		if ($binding) { $this->type_text = static::arrayToText($value); }
-	}
+    private static function _convertArrayToText($array) // , $convert_type = 1) // もし自動変換が複雑になれば実装
+    {
+        if (!is_array($array)) {
+            throw new InvalidArgumentException('配列以外を文字列に変換しようとしました。');
+        }
+        return implode('/', $array);
+    }
 
-	public function getText()
-	{
-		return $this->type_text;
-	}
-
-	public function setText($value, $binding = true) // , $convert_type = 1)
-	{
-		if (!is_string($value)) {
-			throw new InvalidArgumentException('ルリグタイプを表すテキストとして不適切な値が代入されようとしました。');
-		}
-		$this->type_text = $value;
-		if ($binding) { $this->type_array = static::textToArray($value); }
-	}
-
+    private static function _convertTextToArray($text) // , $convert_type = 1) // もし自動変換が複雑になれば実装
+    {
+        if (!is_string($text)) {
+            throw new InvalidArgumentException('文字列以外を配列に変換しようとしました。');
+        } elseif (empty($text)) {
+            return array(); // 空文字列は空の配列を返す
+        }
+        return explode('/', $text);
+    }
 }
 
 

@@ -1,12 +1,9 @@
 <?php
 
-//require_once '../class/goutte.phar';
-
 $ini = parse_ini_file('config.ini');
 
-function __autoload($className)
+function __autoload($class_name)
 {
-	$filePath = '/home/zeta00s/zeta00s.php.xdomain.jp/public_html/wixoss/class/'
-			 . str_replace('_', '/', $className) . '.php';
-	require_once $filePath;
+    $file_path =  '/home/zeta00s/zeta00s.php.xdomain.jp/public_html/wixoss/class/' . str_replace('_', '/', $class_name) . '.php';
+    require_once $file_path;
 }
