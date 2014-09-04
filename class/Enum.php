@@ -21,8 +21,18 @@
  */
 abstract class Enum
 {
+    /**
+     * @var mixed もとの値
+     */
     private $_scalar;
 
+    /**
+     * Enumクラスの新しいオブジェクトを生成する。
+     *
+     * (継承先のクラスは __construct 関数の最初に parent::__construct($value) を呼び出すべきである。)
+     * @param mixed $value 初期値 (継承先のクラスに含まれる定数のいずれかを指定)
+     * @throws InvalidArgumentException 初期値が正常でない場合
+     */
     public function __construct($value)
     {
         $ref = new ReflectionObject($this);
@@ -57,7 +67,7 @@ abstract class Enum
 
     /**
      * クラスに含まれる定数のリストを連想配列(キー:定数名, 値:定数の値)で取り出す
-     * @return multitype 定数のリストを表す連想配列:
+     * @return array 定数のリストを表す連想配列
      */
     public function getValues()
     {

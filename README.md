@@ -18,7 +18,7 @@ Hoge.php
   
 #### クラス名
 class Foo_Bar_Hoge  
- (Foo/Bar/Hoge.php の場合  
+ (Foo/Bar/Hoge.php の場合)  
 * PSR-0に従う? (ディレクトリからのパスに対応, 区切り文字はアンダースコア)
   
 #### インターフェイス名
@@ -27,7 +27,7 @@ HogeInterface
   
 #### 関数名
 private function addValue()  
-public static function isValid($foo, $bar = 0)  
+final public static function isValid($foo, $bar = 0)  
 * camelCaps
 * 動詞または is から始める
 * クラスのメンバで private のときは、関数名の最初にアンダースコア1文字をつける
@@ -43,7 +43,7 @@ private $_original_value;
 #### 配列名
 private $costs;  
 * snake_case
-* 複数形にする(_arrayで終わる場合を除く?)
+* 複数形にする、もしくは末尾に _array をつける?
 * 連想配列のキーも snake_case
   
 #### 定数名
@@ -55,12 +55,12 @@ const FORM_WIDTH = 150;
 * 開始タグは <?php に限定
 * クラスファイルは終了タグをつけてはいけない
 * 文字コードは UTF-8
-* インデントは今のところタブから空白に変更中
+* インデントは空白4つ
   
 詳細  
 * 基本的にわかりやすい名前をつけること、省略しすぎは禁止
 * カンマの後ろは空白を1文字つける
-* クォーテーションは、変数展開しない限りシングルクォーテーションを使う
+* クォーテーションは変数展開しない限りシングルクォーテーション
   
 クラス内部について  
 * 全ての変数と関数は private, protected, public を明示
@@ -69,14 +69,15 @@ const FORM_WIDTH = 150;
   
   
 以下のコーディング規約を参考にしました。  
-上記で明示的に違反させている場合を除いて、記載していない細かい部分はこれらに従うはずです。おそらく。  
+上記で明示的に違反させている場合を除いて、記載していない細かい部分はこれのどっちかに従うはずです。
+競合してない限り。おそらく。  
 Symfony2  
 http://docs.symfony.gr.jp/symfony2/contributing/code/standards.html  
 Zend Framework  
 http://framework.zend.com/manual/1.12/ja/coding-standard.naming-conventions.html  
   
   
-参考)if文の雛形  
+参考) if文の雛形  
   
 if (str == 'one') {  
     // 処理  
