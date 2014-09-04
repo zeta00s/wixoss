@@ -35,7 +35,7 @@ class Card_Data
 
 
 
-    public function __construct($id = 0)
+    public function __construct($id = '')
     {
         $this->init();
     }

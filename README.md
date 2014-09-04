@@ -78,7 +78,7 @@ http://framework.zend.com/manual/1.12/ja/coding-standard.naming-conventions.html
   
   
 参考) if文の雛形  
-  
+<code>  
 if (str == 'one') {  
     // 処理  
 } elseif (str == 1) {  
@@ -88,6 +88,5 @@ if (str == 'one') {
 }  
   
 if (!foo) { bar = 123; }  
+</code>
   
-
-
